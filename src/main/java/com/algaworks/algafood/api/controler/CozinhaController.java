@@ -81,7 +81,7 @@ public class CozinhaController {
 			if (Objects.isNull(cozinhaCarregada)) {
 				return ResponseEntity.notFound().build();
 			} else {
-				cozinhaRepository.remover(cozinhaCarregada);
+				cadastroCozinha.excluir(cozinhaId);
 				return ResponseEntity.noContent().build();
 			}
 		} catch (DataIntegrityViolationException e) {
