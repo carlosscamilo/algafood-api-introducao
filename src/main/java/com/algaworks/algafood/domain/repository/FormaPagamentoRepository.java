@@ -10,8 +10,8 @@ public interface FormaPagamentoRepository {
 
 	FormaPagamento buscar(Long id);
 
-	FormaPagamento salvar(FormaPagamento restaurante);
+	FormaPagamento salvar(FormaPagamento formaPagamento);
 
-	void remover(FormaPagamento restaurante);
+	void remover(Long formaPagamentoId);
 	
 }

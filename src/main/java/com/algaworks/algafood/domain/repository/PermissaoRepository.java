@@ -10,8 +10,8 @@ public interface PermissaoRepository {
 
 	Permissao buscar(Long id);
 
-	Permissao salvar(Permissao cozinha);
+	Permissao salvar(Permissao permissao);
 
-	void remover(Permissao cozinha);
+	void remover(Long permissaoId);
 
 }

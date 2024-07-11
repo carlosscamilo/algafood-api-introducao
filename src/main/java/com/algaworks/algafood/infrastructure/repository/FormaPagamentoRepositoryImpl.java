@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,8 +36,13 @@ public class FormaPagamentoRepositoryImpl implements FormaPagamentoRepository {
 	
 	@Override
 	@Transactional
-	public void remover(FormaPagamento formaPagamento) {
-		formaPagamento = this.buscar(formaPagamento.getId());
+	public void remover(Long id) {
+		FormaPagamento formaPagamento = this.buscar(id);
+		
+        if (formaPagamento == null) {
+            throw new EmptyResultDataAccessException(1);
+        }
+        
 		this.manager.remove(formaPagamento);
 	}
 

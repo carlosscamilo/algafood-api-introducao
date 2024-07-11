@@ -10,8 +10,8 @@ public interface EstadoRepository {
 
 	Estado buscar(Long id);
 
-	Estado salvar(Estado restaurante);
+	Estado salvar(Estado estado);
 
-	void remover(Estado restaurante);
+	void remover(Long id);
 	
 }
