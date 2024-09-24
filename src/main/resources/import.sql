@@ -1,8 +1,12 @@
 insert into cozinha (nome) values ('Tailandesa');
 insert into cozinha (nome) values ('Brasileira');
+insert into cozinha (nome) values ('Italiana');
 
 insert into restaurante (nome, taxa_frete, cozinha_id) values ('Picanha do Márcio', 5.50, 2);
 insert into restaurante (nome, taxa_frete, cozinha_id) values ('Cozinha do Tio Won', 11.27, 1);
+insert into restaurante (nome, taxa_frete, cozinha_id) values ('Atlântico', 0.0, 3);
+
+insert into forma_pagamento values (1, 'Cartão de Crédito'), (2, 'Cartão de Débito'), (3, 'Dinheiro');
 
 insert into estado(nome) values ('Pernambuco'),('Paraíba'), ('Ceará'), ('Rio de Janeiro'), ('São Paulo');
 insert into estado(nome) values ('Acre'), ('Amazônia'), ('Pará'), ('Bahia'), ('Alagoas'), ('Santa Catarina');
@@ -91,3 +95,5 @@ insert into cidade (nome, estado_id) values ('Laranjal do Jari', 24);
 insert into cidade (nome, estado_id) values ('Pacaraima', 25);
 insert into cidade (nome, estado_id) values ('Ariquemes', 26);
 insert into cidade (nome, estado_id) values ('Contagem', 27);
+
+insert into  restaurante_forma_pagamento values (1, 1), (1, 2), (1, 3), (2, 3), (3, 2), (3, 3);

@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controler;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +37,14 @@ public class CozinhaController {
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Cozinha> listar() {
-		return cozinhaRepository.listar();
+		return cozinhaRepository.findAll();
 	}
 
 	@GetMapping("/{cozinhaId}")
 	// @ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<Cozinha> buscar(@PathVariable("cozinhaId") Long id) {
-		Cozinha cozinha = cozinhaRepository.buscar(id);
-		return Objects.nonNull(cozinha) ? ResponseEntity.ok(cozinha) : ResponseEntity.notFound().build();
+		Optional<Cozinha> cozinha = cozinhaRepository.findById(id);
+		return cozinha.isPresent() ? ResponseEntity.ok(cozinha.get()) : ResponseEntity.notFound().build();
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
@@ -60,18 +60,18 @@ public class CozinhaController {
 	
 	@PutMapping("/{cozinhaId}")
 	public ResponseEntity<Cozinha> atualizar(@PathVariable("cozinhaId") Long cozinhaId, @RequestBody Cozinha cozinha) {
-		Cozinha cozinhaCarregada = cozinhaRepository.buscar(cozinhaId);
-		if (Objects.isNull(cozinhaCarregada)) {
-			return ResponseEntity.notFound().build();
-		} else {
+		Optional<Cozinha> cozinhaCarregada = cozinhaRepository.findById(cozinhaId);
+		if (cozinhaCarregada.isPresent()) {
 			// cozinhaCarregada.setNome(cozinha.getNome());
-
+			
 			// A terceira propriedade em diante desse método
 			// representa as propriedades que você deseja
 			// ignorar quando a copia for realizada;
-			BeanUtils.copyProperties(cozinha, cozinhaCarregada, "id");
-			cadastroCozinha.salvar(cozinhaCarregada);
-			return ResponseEntity.ok(cozinhaCarregada);
+			BeanUtils.copyProperties(cozinha, cozinhaCarregada.get(), "id");
+			Cozinha cozinhaSalva = cadastroCozinha.salvar(cozinhaCarregada.get());
+			return ResponseEntity.ok(cozinhaSalva);
+		} else {
+			return ResponseEntity.notFound().build();
 		}
 	}
 	
